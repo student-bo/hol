@@ -4,12 +4,7 @@ pipeline{
        maven 'M2_HOME'
     }
     stages {
-        stage('Hello'){
-            steps{
-                echo "Hello World"
-         
-            }
-        }
+       
         stage('Build'){
             steps{
                 echo "build step"
@@ -18,17 +13,29 @@ pipeline{
 		sh 'mvn package'
             }
         }
-        stage('Deploy'){
+        stage('Test'){
             steps{
-                echo "deploy step"
+                sh 'mvn test'
          
             }
         }
-        stage('Test'){
+        stage('Deploy'){
             steps{
                 echo "test step"
                 
             }
+        }
+	stage('Build and Publish image'){
+            steps{
+              script{
+                  checkout scm
+                  docker.withRegistry('', 'DockerRegistryID'){
+                      def customImage = docker.build("ntbolan88/hols-pipeline:${env.BUILD_ID}")
+                      customImageImage.push()
+                  }
+              }
+                
+           } 
         }
     }
 }
