@@ -31,7 +31,7 @@ pipeline{
                   checkout scm
                   docker.withRegistry('', 'DockerRegistryID'){
                       def customImage = docker.build("ntbolan88/hols-pipeline:${env.BUILD_ID}")
-                      customImageImage.push()
+                      customImage.push()
                   }
               }
                 
