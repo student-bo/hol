@@ -3,4 +3,4 @@ From tomcat:8-jre8
 
 # Maintainer 
 MAINTAINER "nobossetafembolan@yahoo.fr" 
-COPY webapp/target/devops.war /usr/local/tomcat/webapps
+COPY webapp/target/holiday.war /usr/local/tomcat/webapps
